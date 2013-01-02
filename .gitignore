@@ -4,3 +4,5 @@
 .project
 proguard-project.txt
 project.properties
+*.class
+bin/
