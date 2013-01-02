@@ -2,3 +2,5 @@
 .settings/org.eclipse.jdt.core.prefs
 .classpath
 .project
+proguard-project.txt
+project.properties

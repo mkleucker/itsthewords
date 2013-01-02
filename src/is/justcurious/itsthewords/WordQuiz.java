@@ -9,9 +9,11 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -65,36 +67,57 @@ public class WordQuiz extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				String enteredSolution = fieldText.getText().toString();
-				boolean solutionIsCorrect = quiz.checkWord(enteredSolution);
-				
-				final AlertDialog dialog = new AlertDialog.Builder(v.getContext()).create();
-				
-				if(solutionIsCorrect){
-					setSuccessMessage(dialog);
-				}else{
-					setFailMessage(dialog);
-				}
-				
-				dialog.show();
-					
-				// Instead of having the user to tap all the time, 
-				// hide the popup automatically after 2.5 sec. 
-				
-				final Timer t = new Timer();
-				t.schedule(new TimerTask() {
-					public void run() {
-						if(dialog.isShowing()){
-							dialog.dismiss(); 	
-						}
-						
-						t.cancel(); 
-					}
-				}, 2500);
-				showNextWord();
+				processData();
 			}
 		});
 		
+		// Second Method: Checking by onEnter
+		fieldText.setOnKeyListener(new OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if(event.getAction() == KeyEvent.ACTION_DOWN){
+					switch(keyCode){
+						case KeyEvent.KEYCODE_ENTER:
+							processData();
+							return true;
+						default:
+							break;
+					}
+				}
+				return false;
+			}
+		});
+		
+	}
+	
+	private void processData(){
+		String enteredSolution = fieldText.getText().toString();
+		boolean solutionIsCorrect = quiz.checkWord(enteredSolution);
+		
+		final AlertDialog dialog = new AlertDialog.Builder(this).create();
+		
+		if(solutionIsCorrect){
+			setSuccessMessage(dialog);
+		}else{
+			setFailMessage(dialog);
+		}
+		
+		dialog.show();
+			
+		// Instead of having the user to tap all the time, 
+		// hide the popup automatically after 2.5 sec. 
+		
+		final Timer t = new Timer();
+		t.schedule(new TimerTask() {
+			public void run() {
+				if(dialog.isShowing()){
+					dialog.dismiss(); 	
+				}
+				
+				t.cancel(); 
+			}
+		}, 2500);
+		showNextWord();
 	}
 	
 	private void showNextWord(){

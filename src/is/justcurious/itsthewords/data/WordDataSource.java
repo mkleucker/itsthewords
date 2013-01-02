@@ -99,4 +99,17 @@ public class WordDataSource {
 		
 		return word;
 	}
+	
+	
+	public void updateWord(Word word){
+		long id = word.getId();
+		ContentValues values = new ContentValues();
+		values.put(DBAdapter.KEY_LANG1, word.getLang1());
+		values.put(DBAdapter.KEY_LANG2, word.getLang2());
+		values.put(DBAdapter.KEY_CATEGORY, word.getCategory());
+		values.put(DBAdapter.KEY_CORRECT, word.getCountCorrect());
+		values.put(DBAdapter.KEY_INCORRECT, word.getCountIncorrect());
+		
+		database.update(DBAdapter.DATABASE_TABLE, values, DBAdapter.KEY_ROWID + " = "+ id, null);
+	}
 }

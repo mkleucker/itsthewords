@@ -89,7 +89,7 @@ public class QuizLogic{
 						currentWord.getLang1()+"\" is wrong. Correct: \""+currentWord.getLang2()+"\"");
 		}
 		
-		//TODO: Save Word to Database with updated counts
+		dataSource.updateWord(currentWord);
 		
 		return isGuessCorrect;
 		
