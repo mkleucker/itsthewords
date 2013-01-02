@@ -30,14 +30,30 @@ public class QuizLogic{
 		
 		
 		// TODO: Use propper Handling via DB-Classes
+		
+		/*
+		 * Current logic for ordering the words:
+		 * 	IF word hasn't been played yet 
+		 * 	THEN goes first
+		 *  ELSE
+		 *    ORDER BY count_played_incorrect / count_played_total DESC
+		 *  
+		 * Which essentially ensures that words which have a high rate of
+		 * failure will be shown at first to the user. 
+		 * 
+		 * Flaws: In huge libraries new words which are answered correctly 
+		 * at the first try will come up as last ones. Sad face. 
+		 */
 		String query = "SELECT *, " +
 				"CASE WHEN (" + DBAdapter.KEY_INCORRECT +" + "+ DBAdapter.KEY_CORRECT +") = 0 "+
-				"THEN 1 "+ // Make sure elements which haven't been tested yet show up first
-				"ELSE ("+ DBAdapter.KEY_INCORRECT +" / ("+DBAdapter.KEY_INCORRECT +" + "+ DBAdapter.KEY_CORRECT +") ) "+
+				"THEN 1 "+
+				"ELSE ("+ DBAdapter.KEY_INCORRECT +" *100 / ( "+DBAdapter.KEY_INCORRECT +" + "+ DBAdapter.KEY_CORRECT +" )*100) "+
 				"END "+
 				"AS ratio " +
 				"FROM "+ DBAdapter.DATABASE_TABLE +" "+
 				"ORDER BY ratio DESC";
+		
+		Log.d("SQLQuirrle", query);
 				
 		quizCursor = dataSource.getCursorForQuery(query);
 		if(quizCursor.getCount() > 0){
