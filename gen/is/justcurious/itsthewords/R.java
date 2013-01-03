@@ -45,19 +45,20 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f050000;
-        public static final int category=0x7f050008;
-        public static final int check=0x7f05000d;
+        public static final int category=0x7f050009;
+        public static final int check=0x7f05000e;
         public static final int hello_world=0x7f050001;
-        public static final int language1=0x7f050006;
-        public static final int language2=0x7f050007;
-        public static final int manageWords=0x7f05000b;
+        public static final int language1=0x7f050007;
+        public static final int language2=0x7f050008;
+        public static final int manageWords=0x7f05000c;
         public static final int menu_settings=0x7f050002;
-        public static final int save=0x7f050009;
-        public static final int startQuiz=0x7f05000a;
+        public static final int save=0x7f05000a;
+        public static final int startQuiz=0x7f05000b;
         public static final int title_activity_start=0x7f050004;
+        public static final int title_activity_word_control=0x7f050006;
         public static final int title_activity_word_detail=0x7f050005;
         public static final int title_activity_word_quiz=0x7f050003;
-        public static final int translation=0x7f05000c;
+        public static final int translation=0x7f05000d;
     }
     public static final class style {
         /** 

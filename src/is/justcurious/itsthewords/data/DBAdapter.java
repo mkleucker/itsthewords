@@ -1,6 +1,8 @@
 package is.justcurious.itsthewords.data;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -44,10 +46,43 @@ public class DBAdapter extends SQLiteOpenHelper {
 				KEY_CATEGORY + " TEXT," +
 				KEY_CORRECT + " INTEGER," +
 				KEY_INCORRECT + " INTEGER);";
-		
 		db.execSQL(CREATE_TABLE_WORDS);
 		
+		fillDBforFirstStart(db);
+		
 		Log.w(DBAdapter.class.getName(), "Created Database");
+		
+		
+	}
+	
+	// Initiall Data
+	private void fillDBforFirstStart(SQLiteDatabase db){
+		enterNewWord(db, "Haus", "House", "Everyday");
+		enterNewWord(db, "Straße", "Street", "Everyday");
+		enterNewWord(db, "Baum", "Tree", "Everyday");
+		enterNewWord(db, "Tür", "Door", "Everyday");
+		enterNewWord(db, "Tisch", "Table", "Everyday");
+		
+		enterNewWord(db, "Suppe", "Soup", "Food");
+		enterNewWord(db, "Salat", "Salad", "Food");
+		enterNewWord(db, "Fleisch", "Meat", "Food");
+		enterNewWord(db, "Fisch", "Fish", "Food");
+		enterNewWord(db, "Brot", "Bread", "Food");
+		
+		
+	}
+	
+	// Mini Helper 
+	private void enterNewWord(SQLiteDatabase db, String lang1, String lang2, String category){
+		ContentValues values = new ContentValues();
+		values.put(KEY_LANG1, lang1);
+		values.put(KEY_LANG2, lang2);
+		values.put(KEY_CATEGORY, category);
+				
+		db.insert(
+				DATABASE_TABLE, 
+				null, 
+				values);
 	}
 
 	@Override
