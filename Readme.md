@@ -1,4 +1,4 @@
-# It's The Words
+![It's The Words](https://raw.github.com/mkleucker/itsthewords/master/res/drawable-xhdpi/itsthewords.png)
 
 A small Android programm which implements a simple version of [Flashcards](https://en.wikipedia.org/wiki/Flashcard) for learning a new language. 
 
